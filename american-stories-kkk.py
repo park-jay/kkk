@@ -5,8 +5,8 @@ from datetime import datetime
 import pandas as pd
 from multiprocessing import Pool
 
-year_list = ["1866", "1867", "1868", "1869", "1870",
-            "1871"]
+# year_list = ["1866", "1867", "1868", "1869", "1870",
+#             "1871"]
 
 year_list = ["1872", "1873", "1874", "1875", "1876",
              "1877", "1878", "1879", "1880", "1881",
@@ -92,4 +92,4 @@ if __name__ == '__main__':
 
     # Convert the final dictionary to a DataFrame and save it to a CSV
     df = pd.DataFrame.from_dict(kkk_second).T.reset_index()
-    df.to_csv('/Volumes/T7/chroniclingamerica/american-stories/kkk-first-new.csv', index=False)
+    df.to_csv('/Volumes/T7/chroniclingamerica/american-stories/kkk-between-new.csv', index=False)
