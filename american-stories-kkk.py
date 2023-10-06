@@ -5,11 +5,24 @@ from datetime import datetime
 import pandas as pd
 from multiprocessing import Pool
 
-year_list = ["1915", "1916", "1917", "1918", "1919",
-            "1920", "1921", "1922", "1923", "1924",
-            "1925", "1926", "1927", "1928", "1929",
-            "1930", "1931", "1932", "1933", "1934",
-            "1935", "1936", "1937", "1938", "1939"]
+year_list = ["1866", "1867", "1868", "1869", "1870",
+            "1871"]
+
+year_list = ["1872", "1873", "1874", "1875", "1876",
+             "1877", "1878", "1879", "1880", "1881",
+             "1882", "1883", "1884", "1885", "1886",
+             "1887", "1888", "1889", "1890", "1891",
+             "1892", "1893", "1894", "1895", "1896",
+             "1897", "1898", "1899", "1900", "1901",
+             "1902", "1903", "1904", "1905", "1906",
+             "1907", "1908", "1909", "1910", "1911",
+             "1912", "1913", "1914"]
+
+# year_list = ["1915", "1916", "1917", "1918", "1919",
+#             "1920", "1921", "1922", "1923", "1924",
+#             "1925", "1926", "1927", "1928", "1929",
+#             "1930", "1931", "1932", "1933", "1934",
+#             "1935", "1936", "1937", "1938", "1939"]
 
 search_term_1 = ['klan']
 search_term_2 = ['knight', 'rider']
@@ -79,4 +92,4 @@ if __name__ == '__main__':
 
     # Convert the final dictionary to a DataFrame and save it to a CSV
     df = pd.DataFrame.from_dict(kkk_second).T.reset_index()
-    df.to_csv('/Volumes/T7/chroniclingamerica/american-stories/kkk-second-new.csv', index=False)
+    df.to_csv('/Volumes/T7/chroniclingamerica/american-stories/kkk-first-new.csv', index=False)
