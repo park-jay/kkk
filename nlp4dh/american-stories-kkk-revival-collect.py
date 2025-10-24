@@ -60,22 +60,35 @@ year_list = ["1915", "1916", "1917", "1918", "1919",
 #              '1957', '1958', '1959', '1960', '1961', 
 #              '1962', '1963']
 
+#Organization
 search_term_1 = ['klan']
-search_term_2 = ['knight', 'rider']
-search_term_3 = ['night', 'rider']
-search_term_4 = ['nightrider']
-search_term_5 = ['wizard']
-search_term_6 = ['grand', 'dragon']
-search_term_7 = ['kloran']
-search_term_8 = ['klavern']
-search_term_9 = ['klankraft']
-search_term_10 = ['klandom']
-search_term_11 = ['royal', 'rider']
-search_term_12 = ['red', 'robe']
-search_term_13 = ['hooded']
-search_term_14 = ['masked']
-search_term_15 = ['klux', 'kluxer']
-search_term_16 = ['konvention']
+search_term_2 = ['khan'] #I saw OCR errors 
+search_term_3 = ['klux']
+search_term_4 = ['kloran']
+search_term_5 = ['klavern']
+search_term_6 = ['klankraft']
+search_term_7 = ['klandom']
+search_term_8 = ['konvention']
+search_term_9 = ['klonverse']
+search_term_10 = ['invisible', 'empire']
+search_term_11 = ['imperial', 'wizard']
+search_term_12 = ['grand', 'dragon']
+#violence
+search_term_13 = ['knight', 'rider']
+search_term_14 = ['night', 'rider']
+search_term_15 = ['nightrider']
+search_term_16 = ['mask', 'mob']
+search_term_17 = ['cross', 'burn']
+search_term_18 = ['flog']
+search_term_19 = ['lynch']
+search_term_20 = ['vigilante']
+search_term_21 = ['whip']
+
+# search_term_12 = ['royal', 'rider'] #Too many false positives
+# search_term_13 = ['red', 'robe'] #Too many false positives
+# search_term_14 = ['hooded'] #Too many false positives
+# search_term_15 = ['masked'] #Too many false positives
+# search_term_16 = ['klux', 'kluxer']
 
 # Define a function to process the data
 def process_data(data):
@@ -84,190 +97,182 @@ def process_data(data):
     
     if date_object >= datetime.strptime(data['year'] + '-01-01', '%Y-%m-%d').date():
         tokens = word_tokenize(data['article'].lower())
-        overlap = set(search_term_1).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap) == 1: #klan #1
+        overlap_klan = set(search_term_1).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_klan) == 1: #klan #1
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'],
                 'date': data['date'],
                 'article': data['article']
             }
-
-        knight_index = tokens.index('knight') if 'knight' in tokens else -1 #knight rider #2
+        overlap_khan = set(search_term_2).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_khan) == 1: #khan #2
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'],
+                'date': data['date'],
+                'article': data['article']
+            }
+        overlap_klux = set(search_term_3).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_klux) == 1: #klux #3
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'],
+                'date': data['date'],
+                'article': data['article']
+            }
+        overlap_kloran = set(search_term_4).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_kloran) == 1: #kloran #4
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'],
+                'date': data['date'],
+                'article': data['article']
+            }
+        overlap_klavern = set(search_term_5).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_klavern) == 1: #klavern #5
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'],
+                'date': data['date'],
+                'article': data['article']
+            }
+        overlap_klankraft = set(search_term_6).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_klankraft) == 1: #klankraft #6
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'],
+                'date': data['date'],
+                'article': data['article']
+            }
+        overlap_klandom = set(search_term_7).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_klandom) == 1: #klandom #7
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'],
+                'date': data['date'],
+                'article': data['article']
+            }
+        overlap_konvention = set(search_term_8).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_konvention) == 1: #konvention #8
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'],
+                'date': data['date'],
+                'article': data['article']
+            }
+        overlap_klonverse = set(search_term_9).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_klonverse) == 1: #klonverse #9
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'],
+                'date': data['date'],
+                'article': data['article']
+            }
+        invisible_index = tokens.index('invisible') if 'invisible' in tokens else -1 #invisible empire #10
+        empire_index = tokens.index('empire') if 'empire' in tokens else -1
+        if (invisible_index != -1 and empire_index != -1 and abs(invisible_index - empire_index) <=5): #invisible empire 
+            # check if both words are within 5 words of each other
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'], 
+                'date': data['date'],
+                'article': data['article']
+            }
+        imperial_index = tokens.index('imperial') if 'imperial' in tokens else -1 #imperial wizard #11
+        wizard_index = tokens.index('wizard') if 'wizard' in tokens else -1
+        if (imperial_index != -1 and wizard_index != -1 and abs(imperial_index - wizard_index) <=5): #imperial wizard
+            # check if both words are within 5 words of each other
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'], 
+                'date': data['date'],
+                'article': data['article']   
+            }
+        grand_index = tokens.index('grand') if 'grand' in tokens else -1 #grand dragon #12
+        dragon_index = tokens.index('dragon') if 'dragon' in tokens else -1
+        if (grand_index != -1 and dragon_index != -1 and abs(grand_index- dragon_index) <=5): #grand dragon
+            # check if both words are within 5 words of each other
+            result[data['article_id']] = {
+                'headline': data['headline'],
+                'newspaper_name': data['newspaper_name'], 
+                'date': data['date'],
+                'article': data['article']
+            }
+        knight_index = tokens.index('knight') if 'knight' in tokens else -1 #knight rider #13
         rider_index = tokens.index('rider') if 'rider' in tokens else -1
         if (knight_index != -1 and rider_index != -1 and abs(knight_index - rider_index) <=5): #knight rider
+            # check if both words are within 5 words of each other
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'], 
                 'date': data['date'],
                 'article': data['article']
             }
-        # overlap2 = set(search_term_2).intersection(set(word_tokenize(data['article'].lower())))
-        # if len(overlap2) == 2: #knight rider
-        #     result[data['article_id']] = {
-        #         'headline': data['headline'],
-        #         'newspaper_name': data['newspaper_name'],
-        #         'date': data['date'],
-        #         'article': data['article']
-        #     }
-        
-        night_index = tokens.index('night') if 'night' in tokens else -1 #night rider #3
+        night_index = tokens.index('night') if 'night' in tokens else -1 #night rider #14
         rider_index = tokens.index('rider') if 'rider' in tokens else -1
         if (night_index != -1 and rider_index != -1 and abs(night_index - rider_index) <=5): #night rider
+            # check if both words are within 5 words of each other
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'], 
                 'date': data['date'],
                 'article': data['article']
             }
-        # overlap3 = set(search_term_3).intersection(set(word_tokenize(data['article'].lower())))
-        # if len(overlap3) == 2: #night rider
-        #     result[data['article_id']] = {
-        #         'headline': data['headline'],
-        #         'newspaper_name': data['newspaper_name'],
-        #         'date': data['date'],
-        #         'article': data['article']
-        #     }
-       
-        overlap4 = set(search_term_4).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap4) == 1: #nightrider #4
+        overlap_nightrider = set(search_term_15).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_nightrider) == 1: #nightrider #15
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'],
                 'date': data['date'],
                 'article': data['article']
             }
-        
-        overlap5 = set(search_term_5).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap5) == 1: #wizard #5
-            result[data['article_id']] = {
-                'headline': data['headline'],
-                'newspaper_name': data['newspaper_name'],
-                'date': data['date'],
-                'article': data['article']
-            }
-        
-        # overlap6 = set(search_term_6).intersection(set(word_tokenize(data['article'].lower())))
-        # if len(overlap6) == 2: #grand dragon
-        #     result[data['article_id']] = {
-        #         'headline': data['headline'],
-        #         'newspaper_name': data['newspaper_name'],
-        #         'date': data['date'],
-        #         'article': data['article']
-        #     }
-        
-        grand_index = tokens.index('grand') if 'grand' in tokens else -1
-        dragon_index = tokens.index('dragon') if 'dragon' in tokens else -1
-        if (grand_index != -1 and dragon_index != -1 and abs(grand_index - dragon_index) <=5): #grand dragon #6
+        mask_index = tokens.index('mask') if 'mask' in tokens else -1 #mask mob #16
+        mob_index = tokens.index('mob') if 'mob' in tokens else -1
+        if (mask_index != -1 and mob_index != -1 and abs(mask_index - mob_index) <=5): #mask mob
+            # check if both words are within 5 words of each other
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'], 
                 'date': data['date'],
                 'article': data['article']
             }
-
-        overlap7 = set(search_term_7).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap7) == 1: #kloran #7
+        cross_index = tokens.index('cross') if 'cross' in tokens else -1 #cross burn #17
+        burn_index = tokens.index('burn') if 'burn' in tokens else -1
+        if (cross_index != -1 and burn_index != -1 and abs(cross_index - burn_index) <=5): #cross burn
+            # check if both words are within 5 words of each other
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'],
                 'date': data['date'],
                 'article': data['article']
             }
-        
-        overlap8 = set(search_term_8).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap8) == 1: #klavern #8
+        overlap_flog = set(search_term_18).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_flog) == 1: #flog #18
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'],
                 'date': data['date'],
                 'article': data['article']
             }
-        
-        overlap9 = set(search_term_9).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap9) == 1: #klankraft #9
+        overlap_lynch = set(search_term_19).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_lynch) == 1: #lynch #19
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'],
                 'date': data['date'],
                 'article': data['article']
             }
-        
-        overlap10 = set(search_term_10).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap10) == 1: #klandom #10
+        overlap_vigilante = set(search_term_20).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_vigilante) == 1: #vigilante #20
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'],
                 'date': data['date'],
                 'article': data['article']
             }
-        
-        royal_index = tokens.index('royal') if 'royal' in tokens else -1
-        rider_index = tokens.index('rider') if 'rider' in tokens else -1
-        if (royal_index != -1 and rider_index != -1 and abs(royal_index - rider_index) <=5): #royal rider #11
-            result[data['article_id']] = {
-                'headline': data['headline'],
-                'newspaper_name': data['newspaper_name'], 
-                'date': data['date'],
-                'article': data['article']
-            }
-        # overlap11 = set(search_term_11).intersection(set(word_tokenize(data['article'].lower())))
-        # if len(overlap11) == 2: #royal rider
-        #     result[data['article_id']] = {
-        #         'headline': data['headline'],
-        #         'newspaper_name': data['newspaper_name'],
-        #         'date': data['date'],
-        #         'article': data['article']
-        #     }
-        
-        red_index= tokens.index('red') if 'red' in tokens else -1
-        robe_index = tokens.index('robe') if 'robe' in tokens else -1
-        if (red_index != -1 and robe_index != -1 and abs(red_index - robe_index) <=5): #red robe #12
-            result[data['article_id']] = {
-                'headline': data['headline'],
-                'newspaper_name': data['newspaper_name'], 
-                'date': data['date'],
-                'article': data['article']
-            }
-
-        # overlap12 = set(search_term_12).intersection(set(word_tokenize(data['article'].lower())))
-        # if len(overlap12) == 2: #red robe
-        #     result[data['article_id']] = {
-        #         'headline': data['headline'],
-        #         'newspaper_name': data['newspaper_name'],
-        #         'date': data['date'],
-        #         'article': data['article']
-        #     }
-        
-        overlap13 = set(search_term_13).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap13) == 1: #hooded #13
-            result[data['article_id']] = {
-                'headline': data['headline'],
-                'newspaper_name': data['newspaper_name'],
-                'date': data['date'],
-                'article': data['article']
-            }
-
-        overlap14 = set(search_term_14).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap14) == 1: #masked #14
-            result[data['article_id']] = {
-                'headline': data['headline'],
-                'newspaper_name': data['newspaper_name'],
-                'date': data['date'],
-                'article': data['article']
-            }
-        
-        overlap15 = set(search_term_15).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap15) >= 1: #klux kluxer #15
-            result[data['article_id']] = {
-                'headline': data['headline'],
-                'newspaper_name': data['newspaper_name'], 
-                'date': data['date'],
-                'article': data['article']
-            }
-        
-        overlap16 = set(search_term_16).intersection(set(word_tokenize(data['article'].lower())))
-        if len(overlap16) == 1: #konvention #16
+        overlap_whip = set(search_term_21).intersection(set(word_tokenize(data['article'].lower())))
+        if len(overlap_whip) == 1: #whip #21
             result[data['article_id']] = {
                 'headline': data['headline'],
                 'newspaper_name': data['newspaper_name'],
@@ -297,4 +302,4 @@ if __name__ == '__main__':
 
     # Convert the final dictionary to a DataFrame and save it to a CSV
     df = pd.DataFrame.from_dict(kkk_second).T.reset_index()
-    df.to_csv('/Volumes/T7/chroniclingamerica/american-stories/kkk-all-revival.csv', index=False)
+    df.to_csv('/Volumes/T7/chroniclingamerica/american-stories/kkk-revival.csv', index=False)
